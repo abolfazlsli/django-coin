@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>افزودن ارز جدید</title>
+    <style>
+        /* تنظیم فونت فارسی زیبا */
+        @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+        body {
+            font-family: 'Vazir', Tahoma, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 40px 20px;
+            direction: rtl;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2.4rem;
+        }
+        form {
+            max-width: 500px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(25, 118, 210, 0.15);
+            box-sizing: border-box;
+        }
+        form p {
+            margin-bottom: 20px;
+        }
+        form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+            color: #1976d2;
+        }
+        form input[type="text"],
+        form input[type="email"],
+        form textarea,
+        form select {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 1rem;
+            border: 1.8px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+            font-family: 'Vazir', Tahoma, sans-serif;
+            resize: vertical;
+        }
+        form input[type="text"]:focus,
+        form input[type="email"]:focus,
+        form textarea:focus,
+        form select:focus {
+            border-color: #1976d2;
+            outline: none;
+            box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
+        }
+        button[type="submit"] {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0f4a8c;
+        }
+        /* استایل خطاها (اگر داشته باشی) */
+        .errorlist {
+            color: #d32f2f;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>افزودن ارز جدید</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ارسال</button>
+    </form>
+</body>
+</html>

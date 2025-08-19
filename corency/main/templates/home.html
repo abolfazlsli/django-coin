@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 20px;
+            color: #333;
+        }
+        .coins-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .coin-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 250px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .coin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .coin-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+            background-color: #f0f0f0;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .coin-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            white-space: nowrap;
+        }
+        hr.divider {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .add-coin-card {
+            justify-content: center;
+            flex-direction: column;
+            color: #2196f3;
+            border: 2px dashed #2196f3;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .add-coin-card:hover {
+            background-color: #e3f2fd;
+        }
+
+        .plus-sign {
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 10px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="coins-container">
+        {% for i in coins %}
+            <a href="/coininfo/{{i.name}}" class="coin-card">
+                <img src="{{i.logourl}}" alt="{{i.name}} logo" class="coin-logo" />
+                <h1 class="coin-name">{{i.name}}</h1>
+            </a>
+            {% if not loop.last %}
+                <hr class="divider" />
+            {% endif %}
+        {% endfor %}
+        <a href="/add-coin" class="coin-card add-coin-card" title="افزودن ارز جدید">
+            <div class="plus-sign">+</div>
+            <h1 class="coin-name">افزودن ارز جدید</h1>
+        </a>
+    </div>
+</body>
+</html>

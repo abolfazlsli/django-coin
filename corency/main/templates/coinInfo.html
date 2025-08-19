@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ coin.name }} - اطلاعات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row-reverse; /* Right side: image, Left: info */
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .coin-logo-section {
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .coin-logo {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .coin-price {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        .coin-info {
+            flex: 1;
+        }
+
+        .coin-name {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .coin-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* کانتینر چارت */
+        #tradingview-widget {
+            margin-top: 30px;
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="coin-logo-section">
+            <img src="{{ coin.logourl }}" alt="{{ coin.name }} logo" class="coin-logo" />
+            <div class="coin-price">
+            </div>
+        </div>
+        <div class="coin-info">
+            <h1 class="coin-name">{{ coin.name }}</h1>
+            <p class="coin-description">
+                {{ coin.discription }}
+            </p>
+            <div id="tradingview-widget"></div>
+        </div>
+    </div>
+
+    <input hidden id="apiurl" value="{{coin.apiurl}}" />
+    <script src="https://s3.tradingview.com/tv.js"></script>
+
+    <script>
+        const apiurl = document.getElementById("apiurl").value;
+        const simplePriceApi = apiurl.replace('/market_chart/range', '/simple/price?vs_currencies=usd&ids={{coin.name | lower}}');
+        fetch(simplePriceApi)
+            .then(res => res.json())
+            .then(data => {
+                const elm = document.querySelector(".coin-price");
+                elm.innerHTML = `قیمت : ${data['{{coin.name | lower}}'].usd} دلار`;
+            });
+        const tradingSymbol = "BINANCE:{{ coin.symbol | upper }}USDT";
+
+        new TradingView.widget({
+            "width": "100%",
+            "height": 400,
+            "symbol": tradingSymbol,
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "light",
+            "style": "1",
+            "locale": "fa",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "allow_symbol_change": true,
+            "container_id": "tradingview-widget"
+        });
+    </script>
+</body>
+</html>
