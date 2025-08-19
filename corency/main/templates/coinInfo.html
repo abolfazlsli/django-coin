@@ -90,11 +90,12 @@
         </div>
     </div>
 
-    <input hidden id="apiurl" value="{{coin.apiurl}}" />
+    <input hidden id="apiurl" value="{{coin.name}}" />
     <script src="https://s3.tradingview.com/tv.js"></script>
 
     <script>
-        const apiurl = document.getElementById("apiurl").value;
+        let apiurl = document.getElementById("apiurl").value;
+        apiurl = `https://api.coingecko.com/api/v3/simple/price?ids=${apiurl}&vs_currencies=usd`
         const simplePriceApi = apiurl.replace('/market_chart/range', '/simple/price?vs_currencies=usd&ids={{coin.name | lower}}');
         fetch(simplePriceApi)
             .then(res => res.json())

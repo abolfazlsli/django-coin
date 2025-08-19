@@ -4,4 +4,4 @@ from .models import Coins
 class PostForm(forms.ModelForm) :
     class Meta :
         model = Coins
-        fields = ["name","apiurl","logourl","discription"]
+        fields = ["name" , "symbol","apiurl","logourl","discription"]
